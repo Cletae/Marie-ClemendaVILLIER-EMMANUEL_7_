@@ -1,0 +1,19 @@
+{
+  "name": "marie-clemendavillier-emmanuel_7_26112021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./css/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021/issues"
+  },
+  "homepage": "https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021#readme"
+}
