@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  max-width: 1440px;
+  margin: auto;
+}
+
+img {
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style: none;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+}
+header img {
+  height: 50px;
+}
+header h1 {
+  color: #D04F4F;
+  font-weight: 700;
+  font-size: 35px;
+  margin: 0;
+}
+
+.searchbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.searchbar .search {
+  width: 95%;
+  padding: 15px;
+  background-color: #e7e7e7;
+  border: none;
+  height: 70px;
+  border-radius: 5px;
+  font-size: 25px;
+}
+.searchbar .search::placeholder {
+  font-size: 25px;
+  color: #b4b4b4;
+}
+.searchbar i {
+  position: absolute;
+  right: 50px;
+  font-size: 27px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-left: 38px;
+  padding-top: 25px;
+}
+.filter article {
+  margin-right: 25px;
+  position: relative;
+}
+.filter article input {
+  padding: 20px 0 20px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+.filter article input::placeholder {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+}
+.filter article .ingredients {
+  background-color: #3282f7;
+}
+.filter article .appareils {
+  background-color: #68d9a4;
+}
+.filter article .ustensiles {
+  background-color: #ed6454;
+}
+.filter article .icon {
+  position: absolute;
+  right: 10px;
+  top: 16px;
+  cursor: pointer;
+}
+.filter article .icon i {
+  color: #fff;
+  font-weight: 900;
+}
+
+/*# sourceMappingURL=main.css.map */

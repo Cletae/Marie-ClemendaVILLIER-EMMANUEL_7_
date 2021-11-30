@@ -1,0 +1,97 @@
+// -------- SearchBar -------- //
+.searchbar {
+  width: 100%;
+  display: flex;
+  @include flex;
+  position: relative;
+
+  .search {
+    width: 95%;
+    padding: 15px;
+    background-color: $color-bg;
+    border: none;
+    height: 70px;
+    border-radius: 5px;
+    font-size: 25px;
+
+    &::placeholder {
+      font-size: 25px;
+      color: darken($color-bg, $amount: 20);
+    }
+  }
+
+  i {
+    position: absolute;
+    right: 50px;
+    font-size: 27px;
+  }
+}
+
+// ------------- Filtre Search ---------------- //
+
+.filter {
+  display: flex;
+  @include flexbox($direction: row);
+  width: 100%;
+  padding-left: 38px;
+  padding-top: 25px;
+
+  article {
+    margin-right: 25px;
+    position: relative;
+
+    input {
+      padding: 20px 0 20px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: $color-deco;
+      font-weight: 700;
+
+      &::placeholder {
+        color: $color-deco;
+        font-weight: 700;
+        font-size: 16px;
+      }
+    }
+
+    .ingredients {
+      background-color: $color-primary;
+    }
+
+    .appareils {
+      background-color: $color-secondary;
+    }
+
+    .ustensiles {
+      background-color: $color-tertiary;
+    }
+
+    .icon {
+      position: absolute;
+      right: 10px;
+      top: 16px;
+      cursor: pointer;
+
+      i {
+        color: $color-deco;
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+// ----------------- Display Recipes Cards ------------- //
+// .recipes {
+//   display: grid;
+
+//   &__card {
+//     display: flex;
+//     @include flexbox;
+//     border: 1px solid $color-fond;
+//   }
+
+//   &__bg {
+//     background-color: $color-fond;
+//   }
+// }

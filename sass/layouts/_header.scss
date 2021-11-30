@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  @include flex;
+  @include flexbox;
+  padding: 30px;
+
+  img {
+    height: 50px;
+  }
+
+  h1 {
+    color: $color-title;
+    font-weight: 700;
+    font-size: 35px;
+    margin: 0;
+  }
+}

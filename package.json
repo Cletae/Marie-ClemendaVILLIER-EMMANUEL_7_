@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021/issues"
   },
-  "homepage": "https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021#readme"
+  "homepage": "https://github.com/Cletae/Marie-ClemendaVILLIER-EMMANUEL_7_26112021#readme",
+  "devDependencies": {
+    "eslint": "^8.3.0"
+  }
 }
