@@ -79,9 +79,9 @@ function fillInput() {
   let appareilsArray = [];
   let ustensilsArray = [];
 
-  // ingredientsList.innerHTML = "";
-  // appareilsList.innerHTML = "";
-  // ustensilesList.innerHTML = "";
+  ingredientsList.innerHTML = "";
+  appareilsList.innerHTML = "";
+  ustensilesList.innerHTML = "";
 
   // ----------- FILL INGREDIENTS LIST ----------------- //
 
@@ -150,6 +150,7 @@ function fillInput() {
     });
 }
 
+// --------------- SEARCHBAR -----------------//
 search.addEventListener("input", () => {
   const regexSearh = new RegExp(/^[a-zA-Z-àâçéèêëîïôûùüÿñæœ']{3,}$/, "g");
 
@@ -205,3 +206,57 @@ search.addEventListener("input", () => {
     }
   }
 });
+
+// //------------------DROPDOWN SEARCH ----------------//
+// const updateTags = (item) => {
+//   const filtering = () => {
+//     const tags = document.querySelectorAll(".tag__name");
+//     const cards = document.querySelectorAll(".recipe-card");
+//     let recipeList = [];
+
+//     search.value == "" ? (recipeList = cards) : (recipeList = validMatches);
+
+//     recipeList.forEach((card) => {
+//       let globalMatch = 0;
+
+//       tags.forEach((tag) => {
+//         const matchingRecipe = recipes.filter(
+//           (el) => el.id == parseInt(card.dataset.id)
+//         );
+
+//         let match = 0;
+
+//         if (tag.parentElement.classList.contains("tag__ingredients")) {
+//           Object.values(matchingRecipe[0].ingredients).forEach((ingredient) => {
+//             if (Object.values(ingredient).includes(tag.innerText)) {
+//               match++;
+//             }
+//           });
+//         } else if (
+//           Object.values(matchingRecipe[0]).includes(tag.innerText) ||
+//           Object.values(matchingRecipe[0].ustensils).includes(
+//             tag.innerText.toLowerCase()
+//           )
+//         ) {
+//           match++;
+//         }
+
+//         if (match > 0) {
+//           globalMatch++;
+//         }
+
+//         if (tag.innerText == item.innerText) {
+//           item.classList.add("activeTag");
+//         }
+//       });
+//       if (globalMatch < tags.length) {
+//         displayedRecipesIds = displayedRecipesIds.filter(
+//           (el) => el !== parseInt(card.dataset.id)
+//         );
+//       }
+//     });
+//   };
+// };
+// // Update item lists and relevant recipes
+// filtering();
+// fillBtnList();
