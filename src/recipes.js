@@ -1,8 +1,9 @@
-import { recipes } from "./data";
+import { recipes } from "./data.js";
 
 // ---------------- DOM Elements --------------- //
 
-const seach = document.querySelector(".search");
+const search = document.querySelector(".search");
+const recipesCards = document.querySelectorAll(".recipes__card");
 
 const ingredientsList = document.querySelector(".ingredients_list");
 const appareilsList = document.querySelector(".appareils_list");
@@ -14,30 +15,50 @@ const ustensilesInput = document.querySelector(".ustensiles");
 const recipesContent = document.querySelector(".recipes");
 
 let displayRecipes = [];
+let validSearch = [];
 
-export class Recipes {
-  constructor(recipes) {
-    this.recipes = recipes;
-    this.id = recipes.id;
-    this.name = recipes.name;
-    this.servings = recipes.servings;
-    this.ingredients = recipes.ingredients;
-    this.time = recipes.time;
-    this.description = recipes.description;
-    this.appliance = recipes.appliance;
-    this.utensils = recipes.ustensils;
+let ingredientsArray = [];
+let appareilsArray = [];
+let ustensilsArray = [];
+
+// Display Recipes card //
+
+for (let i = 0; i < recipes.length; i++) {
+  const ingredientsList = recipes[i].ingredients;
+
+  let ingredients = "";
+
+  for (let j = 0; j < ingredientsList.length; j++) {
+    const quantity = ingredientsList[j].quantity;
+    let unit = ingredientsList[j].unit;
+
+    if (unit == "grammes") {
+      unit = "g";
+    } else if (unit == "litres") {
+      unit = "l";
+    }
+
+    const ingredientName = `<strong>${ingredientsList[j].ingredient}</strong>`;
+
+    if (quantity && unit && unit.length > 2) {
+      ingredients += `<li>${ingredientName}: ${quantity} ${unit}</li>`;
+    } else if (quantity && unit && unit.length <= 2) {
+      ingredients += `<li>${ingredientName}: ${quantity}${unit}</li>`;
+    } else if (quantity) {
+      ingredients += `<li>${ingredientName}: ${quantity}</li>`;
+    } else {
+      ingredients += `<li>${ingredientName}</li>`;
+    }
   }
-}
 
-function createRecipesCard() {
   const recipesContent = document.querySelector(".recipes");
-  recipesContent.innerHTML += `<article class="recipes__card">
+  recipesContent.innerHTML += `<article class="recipes__card" data-id="${recipes[i].id}">
         <div class="recipes__bg"></div>
         <div class="recipes__head">
-            <h2>${this.name}</h2>
+            <h2>${recipes[i].name}</h2>
             <span>
               <i class="far fa-clock"></i>
-              <p>${this.time} min</p>
+              <p>${recipes[i].time} min</p>
             </span>
         </div>
         <div class="recipes__details">
@@ -48,18 +69,19 @@ function createRecipesCard() {
   displayRecipes.push(recipes[i].id);
 }
 
-const displayItem = `<li class="list-item"></li>`;
+const displayItem = (item) =>
+  `<li class="list-item"><a href="#" class="item-text">${item}</a></li>`;
 
 fillInput();
 
 function fillInput() {
   let ingredientsArray = [];
-  let appliancesArray = [];
-  let utensilsArray = [];
+  let appareilsArray = [];
+  let ustensilsArray = [];
 
-  ingredientsList.innerHTML = "";
-  appliancesList.innerHTML = "";
-  ustensilesList.innerHTML = "";
+  // ingredientsList.innerHTML = "";
+  // appareilsList.innerHTML = "";
+  // ustensilesList.innerHTML = "";
 
   // ----------- FILL INGREDIENTS LIST ----------------- //
 
@@ -82,28 +104,28 @@ function fillInput() {
   ingredientsArray
     .sort((a, b) => a.localeCompare(b))
     .forEach((ingredient) => {
-      ingredientsList.innerHTML += displayItem;
+      ingredientsList.innerHTML += displayItem(ingredient);
     });
 
-  // ----------- FILL APPLIANCE LIST ----------------- //
+  // ----------- FILL appareil LIST ----------------- //
 
   recipes.forEach((recipe) => {
     if (displayRecipes.includes(recipe.id)) {
-      let appliance = recipe.appliance;
+      let appareil = recipe.appliance;
 
-      appliance = appliance.toLowerCase();
-      appliance = appliance.replace(appliance[0], appliance[0].toUpperCase());
+      appareil = appareil.toLowerCase();
+      appareil = appareil.replace(appareil[0], appareil[0].toUpperCase());
 
-      if (!appliancesArray.includes(appliance)) {
-        appliancesArray.push(appliance);
+      if (!appareilsArray.includes(appareil)) {
+        appareilsArray.push(appareil);
       }
     }
   });
 
-  appliancesArray
+  appareilsArray
     .sort((a, b) => a.localeCompare(b))
-    .forEach((appliance) => {
-      appliancesList.innerHTML += displayItem;
+    .forEach((appareil) => {
+      appareilsList.innerHTML += displayItem(appareil);
     });
 
   // ----------- FILL USTENSILES LIST ----------------- //
@@ -111,19 +133,75 @@ function fillInput() {
   recipes.forEach((recipe) => {
     if (displayRecipes.includes(recipe.id)) {
       recipe.ustensils.forEach((item) => {
-        let utensil = item.toLowerCase();
-        utensil = utensil.replace(utensil[0], utensil[0].toUpperCase());
+        let ustensil = item.toLowerCase();
+        ustensil = ustensil.replace(ustensil[0], ustensil[0].toUpperCase());
 
-        if (!utensilsArray.includes(utensil)) {
-          utensilsArray.push(utensil);
+        if (!ustensilsArray.includes(ustensil)) {
+          ustensilsArray.push(ustensil);
         }
       });
     }
   });
 
-  utensilsArray
+  ustensilsArray
     .sort((a, b) => a.localeCompare(b))
-    .forEach((utensil) => {
-      ustensilesList.innerHTML += displayItem(utensil);
+    .forEach((ustensil) => {
+      ustensilesList.innerHTML += displayItem(ustensil);
     });
 }
+
+search.addEventListener("input", () => {
+  const regexSearh = new RegExp(/^[a-zA-Z-àâçéèêëîïôûùüÿñæœ']{3,}$/, "g");
+
+  let displayItem = [];
+
+  for (let i = 0; i < recipesCards.length; i++) {
+    if (search.value.length >= 3) {
+      const children = recipesCards[i].childNodes;
+
+      let match = 0;
+
+      for (let j = 0; j < children.length; j++) {
+        if (regexSearh.test(children[j].innerText)) {
+          match++;
+          let checkId = 0;
+          for (let d = 0; d < displayItem.length; d++) {
+            if (recipesCards[i].dataset.id == displayItem[d]) {
+              checkId++;
+            }
+          }
+          if (checkId == 0) {
+            displayItem.push(parseInt(recipesCards[i].dataset.id));
+          }
+        }
+      }
+
+      if (match == 0) {
+        validSearch = validSearch.filter(
+          (recipes) => recipes.dataset.id !== recipesCards[i].dataset.id
+        );
+      } else {
+        let searchMatch = 0;
+        for (let j = 0; j < validSearch.length; j++) {
+          if (recipesCards[i].dataset.id == validSearch[j].dataset.id) {
+            searchMatch++;
+          }
+        }
+        if (searchMatch == 0) {
+          validSearch.push(recipesCards[i]);
+        }
+      }
+    } else if (search.value == "") {
+      let searchMatch = 0;
+      for (let j = 0; j < validSearch.length; j++) {
+        if (recipesCards[i].dataset.id === validSearch[j].dataset.id) {
+          searchMatch++;
+        }
+      }
+      if (searchMatch == 0) {
+        validSearch.push(recipesCards[i]);
+      }
+      displayItem.push(parseInt(recipesCards[i].dataset.id));
+    }
+  }
+});

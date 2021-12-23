@@ -68,8 +68,7 @@ header h1 {
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding-left: 38px;
-  padding-top: 25px;
+  padding: 25px 0 40px 38px;
 }
 .filter article {
   margin-right: 25px;
@@ -107,17 +106,59 @@ header h1 {
   color: #fff;
   font-weight: 900;
 }
+.filter article .ingredients_list,
+.filter article .appareils_list,
+.filter article .ustensiles_list {
+  display: none;
+}
 
 .recipes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   row-gap: 55px;
+  column-gap: 45px;
+  margin: 0 35px;
 }
 .recipes__card {
   display: flex;
   flex-direction: column;
-  margin-left: 35px;
+  border: 1px solid #C7BEBE;
+}
+.recipes__bg {
+  background-color: #C7BEBE;
+  height: 165px;
+}
+.recipes__head, .recipes__details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.recipes__head h2, .recipes__details h2 {
+  font-weight: 200;
+}
+.recipes__head span, .recipes__details span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+.recipes__head span i, .recipes__details span i {
+  margin-right: 10px;
+}
+.recipes__details ul {
+  padding-left: 0;
+}
+.recipes__details p {
+  width: 130px;
+  height: 100px;
+  overflow: hidden;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 
 /*# sourceMappingURL=main.css.map */

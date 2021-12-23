@@ -33,8 +33,7 @@
   display: flex;
   @include flexbox($direction: row);
   width: 100%;
-  padding-left: 38px;
-  padding-top: 25px;
+  padding: 25px 0 40px 38px;
 
   article {
     margin-right: 25px;
@@ -78,6 +77,12 @@
         font-weight: 900;
       }
     }
+
+    .ingredients_list,
+    .appareils_list,
+    .ustensiles_list {
+      display: none;
+    }
   }
 }
 
@@ -87,52 +92,57 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   row-gap: 55px;
+  column-gap: 45px;
+  margin: 0 35px;
 
   &__card {
     display: flex;
     @include flexbox;
-    // border: 1px solid $color-fond;
-    margin-left: 35px;
+    border: 1px solid $color-fond;
   }
 
-  // &__bg {
-  //   background-color: $color-fond;
-  //   height: 165px;
-  // }
+  &__bg {
+    background-color: $color-fond;
+    height: 165px;
+  }
 
-  // &__head,
-  // &__details {
-  //   display: flex;
-  //   @include flexbox($direction: row);
-  //   align-items: center;
-  //   justify-content: space-between;
-  //   padding: 0 10px;
+  &__head,
+  &__details {
+    display: flex;
+    @include flexbox($direction: row);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
 
-  //   h2 {
-  //     font-weight: 200;
-  //   }
+    h2 {
+      font-weight: 200;
+    }
 
-  //   span {
-  //     display: flex;
-  //     @include flexbox($direction: row);
-  //     align-items: center;
-  //     font-weight: 500;
-  //     font-size: 20px;
+    span {
+      display: flex;
+      @include flexbox($direction: row);
+      align-items: center;
+      font-weight: 500;
+      font-size: 20px;
 
-  //     i {
-  //       margin-right: 10px;
-  //     }
-  //   }
-  // }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
 
-  // &__details {
-  //   ul {
-  //     padding-left: 0;
-  //   }
+  &__details {
+    ul {
+      padding-left: 0;
+    }
 
-  //   p {
-  //     width: 130px;
-  //     height: 100px;
-  //   }
-  // }
+    p {
+      width: 130px;
+      height: 100px;
+      overflow: hidden;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+    }
+  }
 }
