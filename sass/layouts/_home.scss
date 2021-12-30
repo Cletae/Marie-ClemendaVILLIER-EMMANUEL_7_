@@ -54,22 +54,22 @@
       }
     }
 
-    .ingredients {
+    .ingredients_input {
       background-color: $color-primary;
     }
 
-    .appareils {
+    .appareils_input {
       background-color: $color-secondary;
     }
 
-    .ustensiles {
+    .ustensiles_input {
       background-color: $color-tertiary;
     }
 
-    .icon {
+    .arrowDown {
       position: absolute;
       right: 10px;
-      top: 16px;
+      top: 19px;
       cursor: pointer;
 
       i {
@@ -78,10 +78,10 @@
       }
     }
 
-    .ingredients_list,
-    .appareils_list,
-    .ustensiles_list {
+    ul {
       display: none;
+      margin: 10px 0;
+      padding-left: 12px;
     }
   }
 }
@@ -110,9 +110,9 @@
   &__details {
     display: flex;
     @include flexbox($direction: row);
-    align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+    font-size: 12px;
 
     h2 {
       font-weight: 200;
@@ -137,9 +137,10 @@
     }
 
     p {
-      width: 130px;
+      max-width: 130px;
       height: 100px;
       overflow: hidden;
+      text-overflow: ellipsis;
       -webkit-line-clamp: 7;
       -webkit-box-orient: vertical;
       display: -webkit-box;

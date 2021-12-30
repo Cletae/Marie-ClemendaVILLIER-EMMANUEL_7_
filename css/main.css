@@ -87,29 +87,29 @@ header h1 {
   font-weight: 700;
   font-size: 16px;
 }
-.filter article .ingredients {
+.filter article .ingredients_input {
   background-color: #3282f7;
 }
-.filter article .appareils {
+.filter article .appareils_input {
   background-color: #68d9a4;
 }
-.filter article .ustensiles {
+.filter article .ustensiles_input {
   background-color: #ed6454;
 }
-.filter article .icon {
+.filter article .arrowDown {
   position: absolute;
   right: 10px;
-  top: 16px;
+  top: 19px;
   cursor: pointer;
 }
-.filter article .icon i {
+.filter article .arrowDown i {
   color: #fff;
   font-weight: 900;
 }
-.filter article .ingredients_list,
-.filter article .appareils_list,
-.filter article .ustensiles_list {
+.filter article ul {
   display: none;
+  margin: 10px 0;
+  padding-left: 12px;
 }
 
 .recipes {
@@ -132,9 +132,9 @@ header h1 {
 .recipes__head, .recipes__details {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  font-size: 12px;
 }
 .recipes__head h2, .recipes__details h2 {
   font-weight: 200;
@@ -153,9 +153,10 @@ header h1 {
   padding-left: 0;
 }
 .recipes__details p {
-  width: 130px;
+  max-width: 130px;
   height: 100px;
   overflow: hidden;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   display: -webkit-box;
