@@ -27,65 +27,6 @@
   }
 }
 
-// ------------- Filtre Search ---------------- //
-
-.filter {
-  display: flex;
-  @include flexbox($direction: row);
-  width: 100%;
-  padding: 25px 0 40px 38px;
-
-  article {
-    margin-right: 25px;
-    position: relative;
-
-    input {
-      padding: 20px 0 20px 15px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      color: $color-deco;
-      font-weight: 700;
-
-      &::placeholder {
-        color: $color-deco;
-        font-weight: 700;
-        font-size: 16px;
-      }
-    }
-
-    .ingredients_input {
-      background-color: $color-primary;
-    }
-
-    .appareils_input {
-      background-color: $color-secondary;
-    }
-
-    .ustensiles_input {
-      background-color: $color-tertiary;
-    }
-
-    .arrowDown {
-      position: absolute;
-      right: 10px;
-      top: 19px;
-      cursor: pointer;
-
-      i {
-        color: $color-deco;
-        font-weight: 900;
-      }
-    }
-
-    ul {
-      display: none;
-      margin: 10px 0;
-      padding-left: 12px;
-    }
-  }
-}
-
 // ----------------- Display Recipes Cards ------------- //
 .recipes {
   display: grid;

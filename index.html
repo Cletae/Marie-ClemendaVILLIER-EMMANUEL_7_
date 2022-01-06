@@ -19,9 +19,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- CSS & JS -->
     <link rel="stylesheet" href="./css/main.css" />
-    <script src="./src/script.js" type="module" defer></script>
 
     <title>Les petit plats</title>
   </head>
@@ -33,37 +31,49 @@
     </header>
 
     <!-- SearchBar -->
-    <section class="searchbar">
+    <div class="searchbar">
       <input
         class="search"
         type="search"
         placeholder="Rechercher un ingrédient, appareil, ustensil ou une recette"
       />
       <i class="fas fa-search"></i>
-    </section>
+    </div>
 
     <!-- Select & advance research -->
-    <section class="filter">
-      <article class="filter__ingredient">
-        <input class="ingredients_input" type="search" placeholder="Indrédients" />
-        <span class="arrowDown"><i class="fas fa-chevron-down"></i></span>
-        <ul class="ingredients_list"></ul>
-      </article>
+    <div class="filter">
+      <div class="filter__tags"></div>
+      <div class="filter__ingredients filter-search" data-type="ingredients">
+        <input
+          class="ingredients_input"
+          type="search"
+          placeholder="Indrédients"
+        />
+        <span class="arrowDown">
+          <i class="fas fa-chevron-down"></i>
+        </span>
+        <ul class="ingredients_list dropdown"></ul>
+      </div>
 
-      <article class="filter__appareils">
+      <div class="filter__appareils filter-search" data-type="appareils">
         <input class="appareils_input" type="search" placeholder="Appareils" />
         <span class="arrowDown"><i class="fas fa-chevron-down"></i></span>
-        <ul class="appareils_list"></ul>
-      </article>
+        <ul class="appareils_list dropdown"></ul>
+      </div>
 
-      <article class="filter__ustensiles">
-        <input class="ustensiles_input" type="search" placeholder="Ustensiles" />
+      <div class="filter__ustensiles filter-search" data-type="ustensiles">
+        <input
+          class="ustensiles_input"
+          type="search"
+          placeholder="Ustensiles"
+        />
         <span class="arrowDown"><i class="fas fa-chevron-down"></i></span>
-        <ul class="ustensiles_list"></ul>
-      </article>
-    </section>
+        <ul class="ustensiles_list dropdown"></ul>
+      </div>
+    </div>
 
     <!-- Display Recipes Cards -->
-    <section class="recipes"></section>
+    <div class="recipes"></div>
+    <script src="./src/script.js" type="module"></script>
   </body>
 </html>

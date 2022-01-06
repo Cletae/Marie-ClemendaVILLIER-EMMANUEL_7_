@@ -1,0 +1,128 @@
+// ------------- Filtre Search ---------------- //
+
+.filter {
+  display: flex;
+  @include flexbox($direction: row);
+  width: 100%;
+  padding: 25px 0 40px 38px;
+
+  &__ingredients,
+  &__appareils,
+  &__ustensiles {
+    margin-right: 25px;
+    position: relative;
+
+    input {
+      padding: 20px 0 20px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: $color-deco;
+      font-weight: 700;
+
+      &::placeholder {
+        color: $color-deco;
+        font-weight: 700;
+        font-size: 16px;
+      }
+    }
+
+    .ingredients_input {
+      background-color: $color-primary;
+    }
+
+    .appareils_input {
+      background-color: $color-secondary;
+    }
+
+    .ustensiles_input {
+      background-color: $color-tertiary;
+    }
+
+    .arrowDown {
+      position: absolute;
+      right: 10px;
+      top: 19px;
+      cursor: pointer;
+
+      i {
+        color: $color-deco;
+        font-weight: 900;
+      }
+    }
+
+    .dropdown {
+      display: none;
+      margin: 10px 0;
+      padding-left: 12px;
+
+      &:not(.open) {
+        input:not(.open) {
+          ::placeholder {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    &.open {
+      width: 50%;
+
+      .ingredients_input,
+      .appareils_input,
+      .ustensiles_input {
+        width: 100%;
+        padding-bottom: 25px;
+        font-size: 20px;
+
+        &::placeholder {
+          font-size: 19px;
+        }
+      }
+
+      .arrowDown {
+        right: 30px;
+        top: 20px;
+
+        i {
+          transform: rotate(180deg);
+        }
+      }
+
+      .dropdown {
+        margin-top: 0;
+        width: 100%;
+        position: absolute;
+        top: 65px;
+        column-width: 200px;
+        padding-bottom: 15px;
+
+        li {
+          padding-bottom: 15px;
+          padding-left: 5px;
+          a {
+            color: $color-deco;
+            font-size: 20px;
+          }
+
+          &:hover {
+            transform: scale(1.025);
+            font-weight: 900;
+          }
+        }
+      }
+
+      .ingredients_list {
+        background-color: $color-primary;
+      }
+
+      .appareils_list {
+        background-color: $color-secondary;
+      }
+
+      .ustensiles_list {
+        background-color: $color-tertiary;
+      }
+    }
+  }
+}
