@@ -64,7 +64,6 @@
         }
       }
     }
-
     &.open {
       width: 50%;
 
@@ -96,6 +95,7 @@
         top: 65px;
         column-width: 200px;
         padding-bottom: 15px;
+        display: block;
 
         li {
           padding-bottom: 15px;

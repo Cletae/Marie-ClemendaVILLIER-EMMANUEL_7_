@@ -201,6 +201,7 @@ header h1 {
   top: 65px;
   column-width: 200px;
   padding-bottom: 15px;
+  display: block;
 }
 .filter__ingredients.open .dropdown li, .filter__appareils.open .dropdown li, .filter__ustensiles.open .dropdown li {
   padding-bottom: 15px;

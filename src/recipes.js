@@ -23,8 +23,6 @@ const ingredientsContainer = document.querySelector(".filter__ingredients");
 const appareilsContainer = document.querySelector(".filter__appareils");
 const ustensilesContainer = document.querySelector(".filter__ustensiles");
 
-const arrows = document.querySelectorAll(".arrowDown");
-
 let ingredientsArray = [];
 let appareilsArray = [];
 let ustensilsArray = [];
@@ -44,9 +42,6 @@ fillInput();
 
 // Event Arrow in Dropdown
 openDropdown();
-//closeDropdown();
-// displayFilterIngredient();
-// displayFilterAppareil();
 
 // -------------------------------------------------------------------------------//
 //************************** DISPLAY RECIPES CARDS ******************************//
@@ -294,104 +289,35 @@ function filterUstensils() {
 
 function openDropdown() {
   filterCards.forEach((filterCard) => {
-    const selectedFilter = filterCard.dataset.type;
+    const arrow = filterCard.querySelector(".arrowDown");
 
-    arrows.forEach((arrow) => {
-      arrow.addEventListener("click", () => {
-        if (selectedFilter == "ingredients") {
-          ingredientsContainer.classList.add("open");
-          ingredientsList.style.display = "block";
-          ingredientsInput.placeholder = "Rechercher un ingredient";
-        } else if (selectedFilter == "appareils") {
-          appareilsContainer.classList.add("open");
-          appareilsList.style.display = "block";
-          appareilsInput.placeholder = "Rechercher un appareil";
-        } else if (selectedFilter == "ustensiles") {
-          ustensilesContainer.classList.add("open");
-          ustensilesList.style.display = "block";
-          ustensilesInput.placeholder = "Rechercher un ustensile";
-        } else {
-          closeDropdown();
-        }
-      });
-    });
-  });
-}
-
-function closeDropdown() {
-  arrows.forEach((arrow) => {
     arrow.addEventListener("click", () => {
-      if (ingredientsContainer.classList.contains("open")) {
-        ingredientsContainer.classList.remove("open");
-        ingredientsList.style.display = "none";
-        ingredientsInput.placeholder = "Ingrédients";
-      } else if (appareilsContainer.classList.contains("open")) {
-        appareilsContainer.classList.remove("open");
-        appareilsList.style.display = "none";
-        appareilsInput.placeholder = "Appareils";
-      } else if (ustensilesContainer.classList.contains("open")) {
-        ustensilesContainer.classList.remove("open");
-        ustensilesList.style.display = "none";
-        ustensilesInput.placeholder = "Ustensiles";
-      } else {
-        closeDropdown();
-      }
-    });
-  });
+      const selectedFilter = filterCard.dataset.type;
 
-  //   if (filterCards.classList.contains("open")) {
-  //     filterCards.classList.remove("open");
-  //     filterCards.style.display = "none"
-  //   }
-}
+      let input;
 
-function displayFilterIngredient() {
-  arrows.forEach((arrow) => {
-    arrow.addEventListener("click", () => {
-      if (!ingredientsContainer.classList.contains("open")) {
-        openDropdownIngredient();
-      } else {
-        closeDropdownIngredient();
+      if (selectedFilter == "ingredient") {
+        ingredientsContainer.classList.toggle("open");
+        input = ingredientsInput;
+      } else if (selectedFilter == "appareil") {
+        appareilsContainer.classList.toggle("open");
+        input = appareilsInput;
+      } else if (selectedFilter == "ustensile") {
+        ustensilesContainer.classList.toggle("open");
+        input = ustensilesInput;
       }
+      togglePlaceholder(filterCard, input, selectedFilter);
     });
   });
 }
 
-function openDropdownIngredient() {
-  ingredientsContainer.classList.toggle("open");
-  ingredientsList.style.display = "block";
-  ingredientsInput.placeholder = "Rechercher un ingredient";
+function togglePlaceholder(filterCard, input, type) {
+  if (filterCard.classList.contains("open")) {
+    input.placeholder = "Rechercher un " + type;
+  } else {
+    input.placeholder = type[0].toUpperCase() + type.substring(1);
+  }
 }
-
-function closeDropdownIngredient() {
-  ingredientsContainer.classList.remove("open");
-  ingredientsList.style.display = "none";
-  ingredientsInput.placeholder = "Ingrédients";
-}
-
-// function displayFilterAppareil() {
-//   arrows.forEach((arrow) => {
-//     arrow.addEventListener("click", () => {
-//       if (!appareilsContainer.classList.contains("open")) {
-//         openDropdownAppareil();
-//       } else {
-//         closeDropdownAppareil();
-//       }
-//     });
-//   });
-// }
-
-// function openDropdownAppareil() {
-//   appareilsContainer.classList.toggle("open");
-//   appareilsList.style.display = "block";
-//   appareilsInput.placeholder = "Rechercher un appareil";
-// }
-
-// function closeDropdownAppareil() {
-//   appareilsContainer.classList.toggle("open");
-//   appareilsList.style.display = "none";
-//   appareilsInput.placeholder = "Appareils";
-// }
 
 function clearHtml() {
   recipesContainer.innerHTML = "";
