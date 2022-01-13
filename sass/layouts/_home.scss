@@ -27,6 +27,21 @@
   }
 }
 
+// ----------------- Display Alert Message ------------- //
+.alert-message {
+  animation: alertMessage 1s linear 0s;
+  p {
+    margin-left: 40px;
+    font-size: 20px;
+    background-color: aliceblue;
+    width: 95%;
+    height: 76px;
+    display: flex;
+    @include flex;
+    font-weight: 500;
+  }
+}
+
 // ----------------- Display Recipes Cards ------------- //
 .recipes {
   display: grid;
@@ -86,5 +101,17 @@
       -webkit-box-orient: vertical;
       display: -webkit-box;
     }
+  }
+}
+
+@keyframes displayAlert {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

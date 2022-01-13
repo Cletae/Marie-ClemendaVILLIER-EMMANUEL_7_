@@ -64,6 +64,21 @@ header h1 {
   font-size: 27px;
 }
 
+.alert-message {
+  animation: alertMessage 1s linear 0s;
+}
+.alert-message p {
+  margin-left: 40px;
+  font-size: 20px;
+  background-color: aliceblue;
+  width: 95%;
+  height: 76px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
 .recipes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -114,6 +129,58 @@ header h1 {
   display: -webkit-box;
 }
 
+@keyframes displayAlert {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.tags {
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  width: 95%;
+  margin-left: 15px;
+}
+.tags__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-left: 22px;
+  margin-top: 15px;
+  border-radius: 5px;
+  width: 8%;
+}
+.tags__item p {
+  font-size: 15px;
+  margin: 10px 15px;
+  font-weight: 400;
+}
+.tags__item .btn_close {
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.tags__item .btn_close i {
+  color: #fff;
+  font-size: 17px;
+}
+.tags .tags_ingredients {
+  background-color: #3282f7;
+}
+.tags .tags_appareils {
+  background-color: #3282f7;
+}
+.tags .tags_ustensiles {
+  background-color: #3282f7;
+}
+
 .filter {
   display: flex;
   flex-direction: row;
@@ -160,6 +227,12 @@ header h1 {
   display: none;
   margin: 10px 0;
   padding-left: 12px;
+}
+.filter__ingredients .dropdown:not(.activeTag), .filter__appareils .dropdown:not(.activeTag), .filter__ustensiles .dropdown:not(.activeTag) {
+  display: none;
+}
+.filter__ingredients .dropdown .activeTag, .filter__appareils .dropdown .activeTag, .filter__ustensiles .dropdown .activeTag {
+  display: block;
 }
 .filter__ingredients .dropdown:not(.open) input:not(.open) ::placeholder, .filter__appareils .dropdown:not(.open) input:not(.open) ::placeholder, .filter__ustensiles .dropdown:not(.open) input:not(.open) ::placeholder {
   font-size: 16px;

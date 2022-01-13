@@ -1,3 +1,51 @@
+// ------------- Display Tags ---------------- //
+.tags {
+  display: flex;
+  @include flexbox;
+  @include flexbox($direction: row);
+  width: 95%;
+  margin-left: 15px;
+  &__item {
+    display: flex;
+    @include flex;
+    color: $color-deco;
+    margin-left: 22px;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 8%;
+
+    p {
+      font-size: 15px;
+      margin: 10px 15px;
+      font-weight: 400;
+    }
+
+    .btn_close {
+      background-color: transparent;
+      border: transparent;
+      cursor: pointer;
+      margin-right: 10px;
+
+      i {
+        color: $color-deco;
+        font-size: 17px;
+      }
+    }
+  }
+
+  .tags_ingredients {
+    background-color: $color-primary;
+  }
+
+  .tags_appareils {
+    background-color: $color-primary;
+  }
+
+  .tags_ustensiles {
+    background-color: $color-primary;
+  }
+}
+
 // ------------- Filtre Search ---------------- //
 
 .filter {
@@ -55,6 +103,14 @@
       display: none;
       margin: 10px 0;
       padding-left: 12px;
+
+      &:not(.activeTag) {
+        display: none;
+      }
+
+      .activeTag {
+        display: block;
+      }
 
       &:not(.open) {
         input:not(.open) {
