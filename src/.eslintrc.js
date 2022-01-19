@@ -1,13 +1,14 @@
 module.exports = {
-  env: {
-    commonjs: true,
-    browser: true,
-    es2021: true,
-  },
-  extends: ["standard"],
-  parserOptions: {
-    ecmaVersion: 12,
-    sourceType: "module",
-  },
-  rules: {},
-};
+	env: {
+	  commonjs: true,
+	  browser: true,
+	  es2021: true,
+	},
+	extends: ["standard"],
+	parserOptions: {
+	  ecmaVersion: 12,
+	  sourceType: "module",
+	},
+	rules: {},
+  };
+  
