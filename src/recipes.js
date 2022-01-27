@@ -339,15 +339,18 @@ function filterSearchbar() {
 
 // ----------- DISPLAY INGREDIENT -------------//
 
-function displayTagsIngredient(item) {
+function displayTagsIngredient() {
   const ingredientItems = document.querySelectorAll(".ingredient_item");
 
   ingredientItems.forEach((ingredientItem) => {
     ingredientItem.addEventListener("click", (e) => {
       inputValue = e.target.textContent;
 
-      if (!ingredientItem.classList.contains("activeTag")) {
-        displayTag.innerHTML += `<div class="tags__item tags_ingredients active">
+    //   if (!ingredientItem.classList.contains("activeTag")) {
+	// 	ingredientItem.classList.add("activeTag");          
+    //   }
+
+	  displayTag.innerHTML += `<div class="tags__item tags_ingredients active">
 		<p class="tagName">${e.target.textContent}</p>
 		<button class="btn_close">
 			<i class="far fa-times-circle"></i>
@@ -357,14 +360,6 @@ function displayTagsIngredient(item) {
         filterTagIngredient(selectedTags);
         closeTagBtn();
         console.log(selectedTags);
-
-        const tags = document.querySelectorAll(".tagName");
-        tags.forEach((tag) => {
-          if (tag.inputValue == item.innerText) {
-            ingredientItem.classList.add("activeTag");
-          }
-        });
-      }
     });
   });
 }
