@@ -187,11 +187,11 @@ header h1 {
   width: 100%;
   padding: 25px 0 40px 38px;
 }
-.filter__ingredients, .filter__appareils, .filter__ustensiles {
+.filter .filter-search {
   margin-right: 25px;
   position: relative;
 }
-.filter__ingredients input, .filter__appareils input, .filter__ustensiles input {
+.filter .filter-search input {
   padding: 20px 0 20px 15px;
   border: none;
   border-radius: 5px;
@@ -199,75 +199,67 @@ header h1 {
   color: #fff;
   font-weight: 700;
 }
-.filter__ingredients input::placeholder, .filter__appareils input::placeholder, .filter__ustensiles input::placeholder {
+.filter .filter-search input::placeholder {
   color: #fff;
   font-weight: 700;
   font-size: 16px;
 }
-.filter__ingredients .ingredients_input, .filter__appareils .ingredients_input, .filter__ustensiles .ingredients_input {
+.filter .filter-search .ingredients_input {
   background-color: #3282f7;
 }
-.filter__ingredients .appareils_input, .filter__appareils .appareils_input, .filter__ustensiles .appareils_input {
+.filter .filter-search .appareils_input {
   background-color: #68d9a4;
 }
-.filter__ingredients .ustensiles_input, .filter__appareils .ustensiles_input, .filter__ustensiles .ustensiles_input {
+.filter .filter-search .ustensiles_input {
   background-color: #ed6454;
 }
-.filter__ingredients .arrowDown, .filter__appareils .arrowDown, .filter__ustensiles .arrowDown {
+.filter .filter-search .arrowDown {
   position: absolute;
   right: 10px;
   top: 19px;
   cursor: pointer;
 }
-.filter__ingredients .arrowDown i, .filter__appareils .arrowDown i, .filter__ustensiles .arrowDown i {
+.filter .filter-search .arrowDown i {
   color: #fff;
   font-weight: 900;
 }
-.filter__ingredients .dropdown, .filter__appareils .dropdown, .filter__ustensiles .dropdown {
+.filter .filter-search .dropdown {
   display: none;
   margin: 10px 0;
   padding-left: 12px;
 }
-.filter__ingredients .dropdown:not(.activeTag), .filter__appareils .dropdown:not(.activeTag), .filter__ustensiles .dropdown:not(.activeTag) {
+.filter .filter-search .dropdown:not(.activeTag) {
   display: none;
 }
-.filter__ingredients .dropdown .activeTag, .filter__appareils .dropdown .activeTag, .filter__ustensiles .dropdown .activeTag {
+.filter .filter-search .dropdown .activeTag {
   display: block;
 }
-.filter__ingredients .dropdown:not(.open) input:not(.open) ::placeholder, .filter__appareils .dropdown:not(.open) input:not(.open) ::placeholder, .filter__ustensiles .dropdown:not(.open) input:not(.open) ::placeholder {
+.filter .filter-search .dropdown:not(.open) input:not(.open) ::placeholder {
   font-size: 16px;
 }
-.filter__ingredients.open, .filter__appareils.open, .filter__ustensiles.open {
+.filter .filter-search.open {
   width: 50%;
 }
-.filter__ingredients.open .ingredients_input,
-.filter__ingredients.open .appareils_input,
-.filter__ingredients.open .ustensiles_input, .filter__appareils.open .ingredients_input,
-.filter__appareils.open .appareils_input,
-.filter__appareils.open .ustensiles_input, .filter__ustensiles.open .ingredients_input,
-.filter__ustensiles.open .appareils_input,
-.filter__ustensiles.open .ustensiles_input {
+.filter .filter-search.open .ingredients_input,
+.filter .filter-search.open .appareils_input,
+.filter .filter-search.open .ustensiles_input {
   width: 100%;
   padding-bottom: 25px;
   font-size: 20px;
 }
-.filter__ingredients.open .ingredients_input::placeholder,
-.filter__ingredients.open .appareils_input::placeholder,
-.filter__ingredients.open .ustensiles_input::placeholder, .filter__appareils.open .ingredients_input::placeholder,
-.filter__appareils.open .appareils_input::placeholder,
-.filter__appareils.open .ustensiles_input::placeholder, .filter__ustensiles.open .ingredients_input::placeholder,
-.filter__ustensiles.open .appareils_input::placeholder,
-.filter__ustensiles.open .ustensiles_input::placeholder {
+.filter .filter-search.open .ingredients_input::placeholder,
+.filter .filter-search.open .appareils_input::placeholder,
+.filter .filter-search.open .ustensiles_input::placeholder {
   font-size: 19px;
 }
-.filter__ingredients.open .arrowDown, .filter__appareils.open .arrowDown, .filter__ustensiles.open .arrowDown {
+.filter .filter-search.open .arrowDown {
   right: 30px;
   top: 20px;
 }
-.filter__ingredients.open .arrowDown i, .filter__appareils.open .arrowDown i, .filter__ustensiles.open .arrowDown i {
+.filter .filter-search.open .arrowDown i {
   transform: rotate(180deg);
 }
-.filter__ingredients.open .dropdown, .filter__appareils.open .dropdown, .filter__ustensiles.open .dropdown {
+.filter .filter-search.open .dropdown {
   margin-top: 0;
   width: 100%;
   position: absolute;
@@ -276,25 +268,25 @@ header h1 {
   padding-bottom: 15px;
   display: block;
 }
-.filter__ingredients.open .dropdown li, .filter__appareils.open .dropdown li, .filter__ustensiles.open .dropdown li {
+.filter .filter-search.open .dropdown li {
   padding-bottom: 15px;
   padding-left: 5px;
 }
-.filter__ingredients.open .dropdown li a, .filter__appareils.open .dropdown li a, .filter__ustensiles.open .dropdown li a {
+.filter .filter-search.open .dropdown li a {
   color: #fff;
   font-size: 20px;
 }
-.filter__ingredients.open .dropdown li:hover, .filter__appareils.open .dropdown li:hover, .filter__ustensiles.open .dropdown li:hover {
+.filter .filter-search.open .dropdown li:hover {
   transform: scale(1.025);
   font-weight: 900;
 }
-.filter__ingredients.open .ingredients_list, .filter__appareils.open .ingredients_list, .filter__ustensiles.open .ingredients_list {
+.filter .filter-search.open .ingredients_list {
   background-color: #3282f7;
 }
-.filter__ingredients.open .appareils_list, .filter__appareils.open .appareils_list, .filter__ustensiles.open .appareils_list {
+.filter .filter-search.open .appareils_list {
   background-color: #68d9a4;
 }
-.filter__ingredients.open .ustensiles_list, .filter__appareils.open .ustensiles_list, .filter__ustensiles.open .ustensiles_list {
+.filter .filter-search.open .ustensiles_list {
   background-color: #ed6454;
 }
 

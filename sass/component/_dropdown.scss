@@ -54,9 +54,12 @@
   width: 100%;
   padding: 25px 0 40px 38px;
 
-  &__ingredients,
-  &__appareils,
-  &__ustensiles {
+  // &__ingredients {
+  //   max-height: 15px;
+  //   overflow: scroll;
+  // }
+
+  .filter-search {
     margin-right: 25px;
     position: relative;
 
