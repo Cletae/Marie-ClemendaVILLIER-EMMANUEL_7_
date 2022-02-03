@@ -183,8 +183,7 @@ ustensilesInput.addEventListener("input", () => {
 function displayCards(recipes) {
   recipes.forEach((recipe) => {
     if (!recipe) return;
-    // for (let i = 0; i < recipes.length; i++) {
-    // 	const ingredientsList = recipes[i].ingredients;
+ 
 
     const ingredientsList = recipe.ingredients;
     let ingredients = "";
@@ -193,9 +192,7 @@ function displayCards(recipes) {
       const quantity = ingredient.quantity;
       let unit = ingredient.unit;
 
-      //   for (let j = 0; j < ingredientsList.length; j++) {
-      // 	const quantity = ingredientsList[j].quantity;
-      // 	let unit = ingredientsList[j].unit;
+    
 
       if (unit == "grammes") {
         unit = "g";
@@ -280,7 +277,6 @@ function fillIngredientsList(recipes) {
   ingredientsList.innerHTML = "";
 
   recipes.forEach((recipe) => {
-    // for (let i = 0; i < recipes.length; i++) {
     const dataIngredients = recipe.ingredients;
     if (displayRecipes.includes(recipe)) {
       dataIngredients.forEach((objet) => {
@@ -313,7 +309,6 @@ function fillAppareilsList(recipes) {
   appareilsList.innerHTML = "";
 
   recipes.forEach((recipe) => {
-    // for (let i = 0; i < recipes.length; i++) {
     if (displayRecipes.includes(recipe)) {
       let appareil = recipe.appliance;
 
@@ -339,7 +334,6 @@ function fillUstensilsList(recipes) {
   ustensilesList.innerHTML = "";
 
   recipes.forEach((recipe) => {
-    // for (let i = 0; i < recipes.length; i++) {
     if (displayRecipes.includes(recipe)) {
       recipe.ustensils.forEach((objet) => {
         let ustensil = objet.toLowerCase();
@@ -468,7 +462,6 @@ function filterIngredients() {
       ingredient.toLowerCase().includes(inputSearch)
     );
 
-    //for (let i = 0; i < ingredientsArray.length; i++) {
     ingredientsArray
       .sort((a, b) => a.localeCompare(b))
 
@@ -524,7 +517,6 @@ function filterUstensils() {
       ustensil.toLowerCase().includes(inputSearch)
     );
 
-    //for (let i = 0; i < ustensilsArray.length; i++) {
 
     ustensilsArray
       .sort((a, b) => a.localeCompare(b))
@@ -560,7 +552,6 @@ function newIngredientList(filterSearch) {
     }
   });
 
-  //for (let i = 0; i < resultIngredient.length; i++) {
 
   resultIngredient
     .sort((a, b) => a.localeCompare(b))
@@ -587,7 +578,6 @@ function newAppareilsList(filterSearch) {
     }
   });
 
-  //for (let i = 0; i < resultAppareil.length; i++) {
 
   resultAppareil
     .sort((a, b) => a.localeCompare(b))
@@ -614,7 +604,6 @@ function newUstensilsList(filterSearch) {
     }
   });
 
-  //for (let i = 0; i < resultUstensil.length; i++) {
 
   resultUstensil
     .sort((a, b) => a.localeCompare(b))
@@ -626,7 +615,6 @@ function newUstensilsList(filterSearch) {
 // ----------- OPEN ARROWS DROPDOWN FILTER -------------//
 
 function openDropdown() {
-  //for (let i = 0; i < filterCards.length; i++) {
 
   filterCards.forEach((filterCard) => {
     const arrow = filterCard.querySelector(".arrowDown");
@@ -667,11 +655,9 @@ function closeTagBtn() {
 	// const tagsItemsAppareils = document.querySelectorAll(".tags_appareils");
 	// const tagsItemsUstensiles = document.querySelectorAll(".tags_ustensiles");
 
-  //for (let i = 0; i < closeBtns.length; i++) {
 
   closeBtns.forEach((closeBtn) => {
     closeBtn.addEventListener("click", () => {
-      //for (let i = 0; i < tagsItems.length; i++) {
 
       tagsItems.forEach((tagsItem) => {
         console.log("hi!");
