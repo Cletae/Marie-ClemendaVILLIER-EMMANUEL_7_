@@ -107,14 +107,6 @@
       margin: 10px 0;
       padding-left: 12px;
 
-      &:not(.activeTag) {
-        display: none;
-      }
-
-      .activeTag {
-        display: block;
-      }
-
       &:not(.open) {
         input:not(.open) {
           ::placeholder {
@@ -156,17 +148,26 @@
         padding-bottom: 15px;
         display: block;
 
-        li {
-          padding-bottom: 15px;
-          padding-left: 5px;
+        &:not(.activeTag) {
           a {
             color: $color-deco;
-            font-size: 20px;
           }
+        }
 
-          &:hover {
-            transform: scale(1.025);
-            font-weight: 900;
+        .list-item {
+          
+          padding-bottom: 15px;
+          padding-left: 5px;
+          .activeTag {
+            a {
+              color: $color-fond !important;
+              font-size: 20px;
+            }
+
+            &:hover {
+              transform: scale(1.025);
+              font-weight: 900;
+            }
           }
         }
       }

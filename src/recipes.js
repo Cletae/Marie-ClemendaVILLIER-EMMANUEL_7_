@@ -11,9 +11,6 @@ const displayTag = document.querySelector(".tags");
 
 const filterCards = document.querySelectorAll(".filter-search");
 
-const tagsItems = document.querySelectorAll(".tags__item");
-const listItems = document.querySelectorAll(".list-item");
-
 const ingredientsList = document.querySelector(".ingredients_list");
 const appareilsList = document.querySelector(".appareils_list");
 const ustensilesList = document.querySelector(".ustensiles_list");
@@ -39,18 +36,99 @@ let resultUstensil = [];
 
 let filterSearch = [];
 let selectedTags = [];
-let filterRecipes = [];
 
 let inputValue = "";
 
-const displayIngredientItem = (item) =>
-  `<li class="list-item ingredient_item"><a href="#" class="item-text">${item}</a></li>`;
+const displayIngredientItem = (item) => {
+  const li = document.createElement("li");
+  li.classList.add("list-item");
+  li.classList.add("ingredient_item");
 
-const displayAppareilItem = (item) =>
-  `<li class="list-item appareil_item"><a href="#" class="item-text">${item}</a></li>`;
 
-const displayUstensilItem = (item) =>
-  `<li class="list-item ustensile_item"><a href="#" class="item-text">${item}</a></li>`;
+  li.innerHTML = `<a href="#" class="item-text">${item}</a>`;
+
+
+	li.addEventListener("click", (e) => {
+      inputValue = e.target.textContent;
+
+      displayTag.innerHTML += `<div class="tags__item tags_ingredients ">
+	  <p class="tagName">${inputValue}</p>
+	  <button class="btn_close">
+	  <i class="far fa-times-circle"></i>
+	  </button>
+	  </div>`;
+
+      const tags = document.querySelectorAll(".tagName");
+
+      tags.forEach((tag) => {
+		  //   const listItems = document.querySelectorAll(".ingredient_item");
+//   listItems.forEach((listItem) => {
+	if (tag.innerText == inputValue) {
+		li.classList.add("activeTag");
+		console.log(li);
+		console.log("passe");
+		
+		closeTagBtn();
+	}
+	//});
+      });
+	filterTagIngredient(recipes, selectedTags);
+    });
+	return li;
+};
+
+
+
+
+
+
+const displayAppareilItem = (item) => {
+  const li = document.createElement("li");
+  li.classList.add("list-item");
+  li.classList.add("appareil_item");
+
+  li.innerHTML = `<a href="#" class="item-text">${item}</a>`;
+
+  li.addEventListener("click", (e) => {
+    inputValue = e.target.textContent;
+
+    displayTag.innerHTML += `<div class="tags__item tags_appareils ">
+	<p class="tagName">${inputValue}</p>
+	<button class="btn_close">
+		<i class="far fa-times-circle"></i>
+	</button>
+	</div>`;
+
+    filterTagAppareil(recipes, selectedTags);
+    // closeTagBtn();
+  });
+
+  return li;
+};
+
+const displayUstensilItem = (item) => {
+  const li = document.createElement("li");
+  li.classList.add("list-item");
+  li.classList.add("ustensile_item");
+
+  li.innerHTML = `<a href="#" class="item-text">${item}</a>`;
+
+  li.addEventListener("click", (e) => {
+    inputValue = e.target.textContent;
+
+    displayTag.innerHTML += `<div class="tags__item tags_ustensiles ">
+	<p class="tagName">${inputValue}</p>
+	<button class="btn_close">
+		<i class="far fa-times-circle"></i>
+	</button>
+	</div>`;
+
+    filterTagUstensile(recipes, selectedTags);
+    // closeTagBtn();
+  });
+
+  return li;
+};
 
 // -------------------------------------------------------------------------------//
 //************************** CALL FUNCTIONS ******************************//
@@ -69,22 +147,6 @@ openDropdown();
 // removeDuplicateItem(recipes);
 filterDropdown(displayRecipes);
 
-// Display Tags Ingredient-Appareils-Ustensiles
-//displayTags();
-displayTagsIngredient();
-displayTagsAppareils();
-displayTagsUstensiles();
-
-// listItems.forEach((listItem) => {
-//   listItem.addEventListener("click", () => {
-//     console.log("hello");
-
-//     displayTagsIngredient();
-//     displayTagsAppareils();
-//     displayTagsUstensiles();
-//   });
-// });
-
 searchbarInput.addEventListener("input", (e) => {
   inputValue = searchbarInput.value;
   if (inputValue.length >= 3) {
@@ -92,9 +154,8 @@ searchbarInput.addEventListener("input", (e) => {
     newList(filterSearch);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    displayTagsIngredient();
-    displayTagsAppareils();
-    displayTagsUstensiles();
+    // filterDropdown(displayRecipes);
+    filterTagIngredient(filterSearch);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -122,6 +183,8 @@ ustensilesInput.addEventListener("input", () => {
 function displayCards(recipes) {
   recipes.forEach((recipe) => {
     if (!recipe) return;
+    // for (let i = 0; i < recipes.length; i++) {
+    // 	const ingredientsList = recipes[i].ingredients;
 
     const ingredientsList = recipe.ingredients;
     let ingredients = "";
@@ -129,6 +192,10 @@ function displayCards(recipes) {
     ingredientsList.forEach((ingredient) => {
       const quantity = ingredient.quantity;
       let unit = ingredient.unit;
+
+      //   for (let j = 0; j < ingredientsList.length; j++) {
+      // 	const quantity = ingredientsList[j].quantity;
+      // 	let unit = ingredientsList[j].unit;
 
       if (unit == "grammes") {
         unit = "g";
@@ -203,12 +270,6 @@ function filterDropdown(displayRecipes) {
   filterUstensils(displayRecipes);
 }
 
-// function displayTags() {
-//   displayTagsIngredient();
-//   displayTagsAppareils();
-//   displayTagsUstensiles();
-// }
-
 // --------------------------------------------------------------------------------//
 //**************************  FILL INPUT FILTER LIST *****************************//
 //-------------------------------------------------------------------------------//
@@ -219,10 +280,12 @@ function fillIngredientsList(recipes) {
   ingredientsList.innerHTML = "";
 
   recipes.forEach((recipe) => {
+    // for (let i = 0; i < recipes.length; i++) {
     const dataIngredients = recipe.ingredients;
     if (displayRecipes.includes(recipe)) {
       dataIngredients.forEach((objet) => {
         let ingredient = objet.ingredient.toLowerCase();
+
         ingredient = ingredient.replace(
           ingredient[0],
           ingredient[0].toUpperCase()
@@ -238,7 +301,7 @@ function fillIngredientsList(recipes) {
   ingredientsArray
     .sort((a, b) => a.localeCompare(b))
     .forEach((ingredient) => {
-      ingredientsList.innerHTML += displayIngredientItem(ingredient);
+      ingredientsList.appendChild(displayIngredientItem(ingredient));
     });
 
   return ingredientsArray;
@@ -250,6 +313,7 @@ function fillAppareilsList(recipes) {
   appareilsList.innerHTML = "";
 
   recipes.forEach((recipe) => {
+    // for (let i = 0; i < recipes.length; i++) {
     if (displayRecipes.includes(recipe)) {
       let appareil = recipe.appliance;
 
@@ -265,7 +329,7 @@ function fillAppareilsList(recipes) {
   appareilsArray
     .sort((a, b) => a.localeCompare(b))
     .forEach((appareil) => {
-      appareilsList.innerHTML += displayAppareilItem(appareil);
+      appareilsList.appendChild(displayAppareilItem(appareil));
     });
 }
 
@@ -275,6 +339,7 @@ function fillUstensilsList(recipes) {
   ustensilesList.innerHTML = "";
 
   recipes.forEach((recipe) => {
+    // for (let i = 0; i < recipes.length; i++) {
     if (displayRecipes.includes(recipe)) {
       recipe.ustensils.forEach((objet) => {
         let ustensil = objet.toLowerCase();
@@ -289,7 +354,7 @@ function fillUstensilsList(recipes) {
   ustensilsArray
     .sort((a, b) => a.localeCompare(b))
     .forEach((ustensil) => {
-      ustensilesList.innerHTML += displayUstensilItem(ustensil);
+      ustensilesList.appendChild(displayUstensilItem(ustensil));
     });
 }
 
@@ -334,85 +399,12 @@ function filterSearchbar() {
 }
 
 // -----------------------------------------------------------------------------//
-//****************************** DISPLAY TAGS *********************************//
-//----------------------------------------------------------------------------//
-
-// ----------- DISPLAY INGREDIENT -------------//
-
-function displayTagsIngredient() {
-  const ingredientItems = document.querySelectorAll(".ingredient_item");
-
-  ingredientItems.forEach((ingredientItem) => {
-    ingredientItem.addEventListener("click", (e) => {
-      inputValue = e.target.textContent;
-
-    //   if (!ingredientItem.classList.contains("activeTag")) {
-	// 	ingredientItem.classList.add("activeTag");          
-    //   }
-
-	  displayTag.innerHTML += `<div class="tags__item tags_ingredients active">
-		<p class="tagName">${e.target.textContent}</p>
-		<button class="btn_close">
-			<i class="far fa-times-circle"></i>
-		</button>
-		</div>`;
-
-        filterTagIngredient(selectedTags);
-        closeTagBtn();
-        console.log(selectedTags);
-    });
-  });
-}
-
-// ----------- DISPLAY APPAREILS -------------//
-
-function displayTagsAppareils() {
-  const appareilsItems = document.querySelectorAll(".appareil_item");
-
-  appareilsItems.forEach((appareilsItem) => {
-    appareilsItem.addEventListener("click", (e) => {
-      inputValue = e.target.textContent;
-
-      displayTag.innerHTML += `<div class="tags__item tags_appareils active">
-      <p class="tagName">${e.target.textContent}</p>
-      <button class="btn_close">
-        <i class="far fa-times-circle"></i>
-      </button>
-    </div>`;
-      filterTagAppareil(selectedTags);
-      closeTagBtn();
-    });
-  });
-}
-
-// ----------- DISPLAY USTENSILES -------------//
-
-function displayTagsUstensiles() {
-  const ustensileItems = document.querySelectorAll(".ustensile_item");
-
-  ustensileItems.forEach((ustensileItem) => {
-    ustensileItem.addEventListener("click", (e) => {
-      inputValue = e.target.textContent;
-
-      displayTag.innerHTML += `<div class="tags__item tags_ustensiles active">
-      <p class="tagName">${e.target.textContent}</p>
-      <button class="btn_close">
-        <i class="far fa-times-circle"></i>
-      </button>
-    </div>`;
-      filterTagUstensile(selectedTags);
-      closeTagBtn();
-    });
-  });
-}
-
-// -----------------------------------------------------------------------------//
 //****************************** FILTER TAGS **********************************//
 //----------------------------------------------------------------------------//
 
 // ----------- FILTER TAGS INGREDIENTS -------------//
 
-function filterTagIngredient() {
+function filterTagIngredient(recipes) {
   filterSearch = recipes.filter((displayRecipes) =>
     displayRecipes.ingredients.find((ingredientArray) =>
       ingredientArray.ingredient
@@ -421,11 +413,8 @@ function filterTagIngredient() {
     )
   );
 
-  // if (condition) {
-
-  // }
-
   selectedTags.push(filterSearch);
+  console.log(selectedTags);
   clearHtml();
   newList(filterSearch);
   displayCards(filterSearch);
@@ -433,7 +422,7 @@ function filterTagIngredient() {
 
 // ----------- FILTER TAGS APPAREILS -------------//
 
-function filterTagAppareil() {
+function filterTagAppareil(recipes) {
   filterSearch = recipes.filter((displayRecipes) =>
     displayRecipes.appliance.toLowerCase().includes(inputValue.toLowerCase())
   );
@@ -446,7 +435,7 @@ function filterTagAppareil() {
 
 // ----------- FILTER TAGS USTENSILES -------------//
 
-function filterTagUstensile() {
+function filterTagUstensile(recipes) {
   filterSearch = recipes.filter((displayRecipes) =>
     displayRecipes.ustensils.find((ustensil) =>
       ustensil.toLowerCase().includes(inputValue.toLowerCase())
@@ -464,7 +453,7 @@ function filterTagUstensile() {
 
 // ----------- FILTER INPUT INGREDIENTS -------------//
 
-function filterIngredients(displayRecipes) {
+function filterIngredients() {
   ingredientsList.innerHTML = "";
 
   inputValue = ingredientsInput.value;
@@ -479,20 +468,21 @@ function filterIngredients(displayRecipes) {
       ingredient.toLowerCase().includes(inputSearch)
     );
 
-    ingredientsList.innerHTML = displayIngredientItem(ingredientsArray);
+    //for (let i = 0; i < ingredientsArray.length; i++) {
+    ingredientsArray
+      .sort((a, b) => a.localeCompare(b))
 
-    clearHtml();
-    displayTagsIngredient();
-    displayCards(filterSearch);
+      .forEach((ingredientsArray) => {
+        ingredientsList.appendChild(displayIngredientItem(ingredientsArray));
+      });
   } else {
-    displayCards(displayRecipes);
     fillIngredientsList(recipes);
   }
 }
 
 // ----------- FILTER INPUT APPAREILS -------------//
 
-function filterAppareils(displayRecipes) {
+function filterAppareils() {
   appareilsList.innerHTML = "";
 
   inputValue = appareilsInput.value;
@@ -507,20 +497,20 @@ function filterAppareils(displayRecipes) {
       appliance.toLowerCase().includes(inputSearch)
     );
 
-    appareilsList.innerHTML = displayAppareilItem(appareilsArray);
-
-    clearHtml();
-    displayTagsAppareils();
-    displayCards(filterSearch);
+    //for (let i = 0; i < appareilsArray.length; i++) {
+    appareilsArray
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((appareilsArray) => {
+        appareilsList.appendChild(displayAppareilItem(appareilsArray));
+      });
   } else {
-    displayCards(displayRecipes);
     fillAppareilsList(recipes);
   }
 }
 
 // ----------- FILTER INPUT USTENSILES -------------//
 
-function filterUstensils(displayRecipes) {
+function filterUstensils() {
   ustensilesList.innerHTML = "";
 
   inputValue = ustensilesInput.value;
@@ -534,13 +524,14 @@ function filterUstensils(displayRecipes) {
       ustensil.toLowerCase().includes(inputSearch)
     );
 
-    ustensilesList.innerHTML = displayUstensilItem(ustensilsArray);
+    //for (let i = 0; i < ustensilsArray.length; i++) {
 
-    clearHtml();
-    displayTagsUstensiles();
-    displayCards(filterSearch);
+    ustensilsArray
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((ustensilsArray) => {
+        ustensilesList.appendChild(displayUstensilItem(ustensilsArray));
+      });
   } else {
-    displayCards(displayRecipes);
     fillUstensilsList(recipes);
   }
 }
@@ -569,10 +560,12 @@ function newIngredientList(filterSearch) {
     }
   });
 
+  //for (let i = 0; i < resultIngredient.length; i++) {
+
   resultIngredient
     .sort((a, b) => a.localeCompare(b))
     .forEach((ingredient) => {
-      ingredientsList.innerHTML += displayIngredientItem(ingredient);
+      ingredientsList.appendChild(displayIngredientItem(ingredient));
     });
 }
 
@@ -594,10 +587,12 @@ function newAppareilsList(filterSearch) {
     }
   });
 
+  //for (let i = 0; i < resultAppareil.length; i++) {
+
   resultAppareil
     .sort((a, b) => a.localeCompare(b))
     .forEach((appareil) => {
-      appareilsList.innerHTML += displayAppareilItem(appareil);
+      appareilsList.appendChild(displayAppareilItem(appareil));
     });
 }
 
@@ -618,16 +613,21 @@ function newUstensilsList(filterSearch) {
       });
     }
   });
+
+  //for (let i = 0; i < resultUstensil.length; i++) {
+
   resultUstensil
     .sort((a, b) => a.localeCompare(b))
     .forEach((ustensil) => {
-      ustensilesList.innerHTML += displayUstensilItem(ustensil);
+      ustensilesList.appendChild(displayUstensilItem(ustensil));
     });
 }
 
 // ----------- OPEN ARROWS DROPDOWN FILTER -------------//
 
 function openDropdown() {
+  //for (let i = 0; i < filterCards.length; i++) {
+
   filterCards.forEach((filterCard) => {
     const arrow = filterCard.querySelector(".arrowDown");
 
@@ -663,10 +663,19 @@ function togglePlaceholder(filterCard, input, type) {
 function closeTagBtn() {
   const closeBtns = document.querySelectorAll(".btn_close");
   const tagsItems = document.querySelectorAll(".tags__item");
+	 const tagsItemsIngredients = document.querySelectorAll(".tags_ingredient");
+	// const tagsItemsAppareils = document.querySelectorAll(".tags_appareils");
+	// const tagsItemsUstensiles = document.querySelectorAll(".tags_ustensiles");
+
+  //for (let i = 0; i < closeBtns.length; i++) {
 
   closeBtns.forEach((closeBtn) => {
     closeBtn.addEventListener("click", () => {
+      //for (let i = 0; i < tagsItems.length; i++) {
+
       tagsItems.forEach((tagsItem) => {
+        console.log("hi!");
+
         tagsItem.remove();
         fillInput();
         displayCards(recipes);
