@@ -154,7 +154,7 @@ header h1 {
   margin-left: 22px;
   margin-top: 15px;
   border-radius: 5px;
-  width: 8%;
+  width: 9%;
 }
 .tags__item p {
   font-size: 15px;
@@ -228,12 +228,6 @@ header h1 {
   margin: 10px 0;
   padding-left: 12px;
 }
-.filter .filter-search .dropdown:not(.activeTag) {
-  display: none;
-}
-.filter .filter-search .dropdown .activeTag {
-  display: block;
-}
 .filter .filter-search .dropdown:not(.open) input:not(.open) ::placeholder {
   font-size: 16px;
 }
@@ -268,15 +262,15 @@ header h1 {
   padding-bottom: 15px;
   display: block;
 }
-.filter .filter-search.open .dropdown li {
+.filter .filter-search.open .dropdown .list-item {
   padding-bottom: 15px;
   padding-left: 5px;
 }
-.filter .filter-search.open .dropdown li a {
+.filter .filter-search.open .dropdown .list-item a {
   color: #fff;
   font-size: 20px;
 }
-.filter .filter-search.open .dropdown li:hover {
+.filter .filter-search.open .dropdown .list-item:hover {
   transform: scale(1.025);
   font-weight: 900;
 }

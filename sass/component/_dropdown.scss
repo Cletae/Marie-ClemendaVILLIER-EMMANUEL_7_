@@ -12,7 +12,7 @@
     margin-left: 22px;
     margin-top: 15px;
     border-radius: 5px;
-    width: 8%;
+    width: 9%;
 
     p {
       font-size: 15px;
@@ -148,26 +148,18 @@
         padding-bottom: 15px;
         display: block;
 
-        &:not(.activeTag) {
-          a {
-            color: $color-deco;
-          }
-        }
-
         .list-item {
-          
           padding-bottom: 15px;
           padding-left: 5px;
-          .activeTag {
-            a {
-              color: $color-fond !important;
-              font-size: 20px;
-            }
 
-            &:hover {
-              transform: scale(1.025);
-              font-weight: 900;
-            }
+          a {
+            color: $color-deco;
+            font-size: 20px;
+          }
+
+          &:hover {
+            transform: scale(1.025);
+            font-weight: 900;
           }
         }
       }
