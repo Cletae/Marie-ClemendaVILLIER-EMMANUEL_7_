@@ -271,7 +271,6 @@ header h1 {
   font-size: 20px;
 }
 .filter .filter-search.open .dropdown .list-item:hover {
-  transform: scale(1.025);
   font-weight: 900;
 }
 .filter .filter-search.open .ingredients_list {

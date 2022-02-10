@@ -188,6 +188,9 @@ const displayUstensilItem = (item) => {
 // Display Recipes Cards //
 displayCards(recipes);
 
+// Display Dropdown Ingredient-Appareils-Ustensiles
+fillInput(displayRecipes);
+
 // Event Arrow in Dropdown
 openDropdown();
 
@@ -203,10 +206,9 @@ searchbarInput.addEventListener("input", (e) => {
     clearHtml();
     filterTag(recipes, selectedTags);
     displayCards(filterSearch);
-    console.log("CC");
   } else {
     clearHtml();
-    fillInput();
+    fillInput(displayRecipes);
     displayCards(recipes);
   }
 });
@@ -291,10 +293,10 @@ function createHtml(recipe, ingredients) {
 // removeDuplicateItem(recipes);
 
 // ----------- FILL DROPDOWN LIST ----------------- //
-function fillInput() {
+function fillInput(displayRecipes) {
   fillIngredientsList(displayRecipes);
-  fillAppareilsList(recipes);
-  fillUstensilsList(recipes);
+  fillAppareilsList(displayRecipes);
+  fillUstensilsList(displayRecipes);
 }
 
 // ----------- FILL DROPDOWN NEW LIST AFETR FILTERING ----------- //
@@ -316,6 +318,7 @@ function filterTag(recipes, selectedTags) {
   filterTagIngredient(recipes, selectedTags);
   filterTagAppareil(recipes, selectedTags);
   filterTagUstensile(recipes, selectedTags);
+  filterTagItems(recipes)
 }
 
 // --------------------------------------------------------------------------------//
@@ -401,6 +404,31 @@ function fillUstensilsList(displayRecipes) {
     });
 }
 
+function filterTagItems(recipes) {
+  const tags = document.querySelectorAll(".tagName");
+
+  recipesContainer.innerHTML = "";
+  tags.forEach((tag) => {
+    filterSearch = recipes.filter(
+      (displayRecipes) =>
+        displayRecipes.ingredients.find((ingredientArray) =>
+          ingredientArray.ingredient
+            .toLowerCase()
+            .includes(tag.innerText.toLowerCase())
+        ) ||
+        displayRecipes.appliance
+          .toLowerCase()
+          .includes(tag.innerText.toLowerCase()) ||
+        displayRecipes.ustensils.find((ustensil) =>
+          ustensil.toLowerCase().includes(tag.innerText.toLowerCase())
+        )
+    );
+  });
+
+  clearHtml();
+  displayCards(filterSearch);
+}
+
 // -----------------------------------------------------------------------------//
 //******************************** SEARCHBAR **********************************//
 //----------------------------------------------------------------------------//
@@ -453,6 +481,7 @@ function filterTagIngredient(recipes, selectedTags) {
   clearHtml();
   newList(filterSearch);
   displayCards(filterSearch);
+
 }
 
 // ----------- FILTER TAGS APPAREILS -------------//
@@ -595,6 +624,8 @@ function newIngredientList(filterSearch) {
     }
   });
 
+  console.log(filterSearch);
+
   resultIngredient
     .sort((a, b) => a.localeCompare(b))
     .forEach((ingredient) => {
@@ -703,7 +734,7 @@ function closeTagBtn(tagItem) {
 
   closeBtn.addEventListener("click", () => {
     tagItem.remove();
-    fillInput();
+    fillInput(displayRecipes);
     displayCards(recipes);
   });
 }
