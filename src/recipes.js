@@ -37,6 +37,8 @@ let resultUstensil = [];
 let filterSearch = [];
 let selectedTags = [];
 
+let tagArray = [];
+
 let inputValue = "";
 
 // -------------------------------------------------------------------------------//
@@ -50,7 +52,7 @@ const displayIngredientItem = (item) => {
   li.classList.add("list-item");
   li.classList.add("ingredient_item");
 
-  li.innerHTML = `<a href="#" class="item-text">${item}</a>`;
+  li.innerHTML = `<a href="#" class="item-text" data-tag-name="${item}">${item}</a>`;
 
   li.addEventListener("click", (e) => {
     inputValue = e.target.textContent;
@@ -83,7 +85,7 @@ const displayIngredientItem = (item) => {
       if (tag.innerText == inputValue) {
         closeTagBtn(tagItem);
         filterTagIngredient(recipes, selectedTags);
-
+        filterTagsItems(tags, tagArray, selectedTags)
         console.log(inputValue + " retiré");
       }
     });
@@ -204,7 +206,7 @@ searchbarInput.addEventListener("input", (e) => {
     newList(filterSearch);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    filterTag(recipes, selectedTags);
+    filterTag(recipes, selectedTags, tags);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -314,11 +316,11 @@ function filterDropdown(displayRecipes) {
   filterUstensils(displayRecipes);
 }
 
-function filterTag(recipes, selectedTags) {
+function filterTag(recipes, selectedTags, tags) {
   filterTagIngredient(recipes, selectedTags);
   filterTagAppareil(recipes, selectedTags);
   filterTagUstensile(recipes, selectedTags);
-  filterTagItems(recipes);
+  filterTagItems(recipes, tags);
 }
 
 // --------------------------------------------------------------------------------//
@@ -404,43 +406,6 @@ function fillUstensilsList(displayRecipes) {
     });
 }
 
-function filterTagItems(recipes) {
-  const tags = document.querySelectorAll(".tagName");
-
-  recipesContainer.innerHTML = "";
-  tags.forEach((tag) => {
-    filterSearch = recipes.filter(
-      (displayRecipes) =>
-        displayRecipes.ingredients.find((ingredientArray) =>
-          ingredientArray.ingredient
-            .toLowerCase()
-            .includes(tag.innerText.toLowerCase())
-        ) ||
-        displayRecipes.appliance
-          .toLowerCase()
-          .includes(tag.innerText.toLowerCase()) ||
-        displayRecipes.ustensils.find((ustensil) =>
-          ustensil.toLowerCase().includes(tag.innerText.toLowerCase())
-        )
-    );
-  });
-
-  selectedTags.forEach((tag) => {
-    if (
-      element.ingredients.indexOf(tag) == -1 &&
-      element.appliance.indexOf(tag) == -1 &&
-      element.ustensils.indexOf(tag) == -1
-    ) {
-      selectedTags = selectedTags.filter(
-        (displayRecipes) => displayRecipes != element.html
-      );
-      //   displayRecipes = displayRecipes.filter((item) => item != element.recipe);
-    }
-  });
-
-  clearHtml();
-  displayCards(filterSearch);
-}
 
 // -----------------------------------------------------------------------------//
 //******************************** SEARCHBAR **********************************//
@@ -493,10 +458,30 @@ function filterTagIngredient(recipes, selectedTags) {
   );
 
   selectedTags.push(filterSearch);
+  
   clearHtml();
   newList(filterSearch);
   displayCards(filterSearch);
 }
+
+function filterTagsItems(tags, items, selectedTags) {
+
+  if (tags.length == 0) {
+    selectedTags = items;
+  } else {
+    tags.forEach((values) => {
+      console.log(selectedTags);
+      console.log(items);
+      items.filter((item) => {
+        if (item.ingredients.indexOf(values.dataset.tagName) == -1) {
+          selectedTags = selectedTags.filter((item) => item != item.recipe);
+        }
+      });
+    });
+  }
+
+}
+
 
 // ----------- FILTER TAGS APPAREILS -------------//
 
@@ -523,6 +508,8 @@ function filterTagUstensile(recipes, selectedTags) {
   newList(filterSearch);
   displayCards(filterSearch);
 }
+
+
 
 // -----------------------------------------------------------------------------//
 //***************************** FILTER INPUT **********************************//
@@ -609,6 +596,9 @@ function filterUstensils() {
   }
 }
 
+
+
+
 // -----------------------------------------------------------------------------//
 //********************* NEW LIST DROPDOWN AFTER FILTER ************************//
 //----------------------------------------------------------------------------//
@@ -637,8 +627,6 @@ function newIngredientList(filterSearch) {
       });
     }
   });
-
-  console.log(filterSearch);
 
   resultIngredient
     .sort((a, b) => a.localeCompare(b))
