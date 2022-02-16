@@ -206,7 +206,6 @@ searchbarInput.addEventListener("input", (e) => {
     clearHtml();
     filterTag(recipes, selectedTags);
     displayCards(filterSearch);
-    console.log("CC");
   } else {
     clearHtml();
     fillInput();
