@@ -85,7 +85,7 @@ const displayIngredientItem = (item) => {
       if (tag.innerText == inputValue) {
         closeTagBtn(tagItem);
         filterTagIngredient(recipes, selectedTags);
-        filterTagsItems(tags, tagArray, selectedTags)
+        filterTagsItems(tags, tagArray, selectedTags);
         console.log(inputValue + " retiré");
       }
     });
@@ -406,7 +406,6 @@ function fillUstensilsList(displayRecipes) {
     });
 }
 
-
 // -----------------------------------------------------------------------------//
 //******************************** SEARCHBAR **********************************//
 //----------------------------------------------------------------------------//
@@ -458,14 +457,13 @@ function filterTagIngredient(recipes, selectedTags) {
   );
 
   selectedTags.push(filterSearch);
-  
+
   clearHtml();
   newList(filterSearch);
   displayCards(filterSearch);
 }
 
 function filterTagsItems(tags, items, selectedTags) {
-
   if (tags.length == 0) {
     selectedTags = items;
   } else {
@@ -473,15 +471,19 @@ function filterTagsItems(tags, items, selectedTags) {
       console.log(selectedTags);
       console.log(items);
       items.filter((item) => {
-        if (item.ingredients.indexOf(values.dataset.tagName) == -1) {
-          selectedTags = selectedTags.filter((item) => item != item.recipe);
+        if (
+          item.fillIngredientsList.indexOf(values.dataset.tagName) == -1 &&
+          item.appliance.indexOf(values.dataset.tagName) == -1 &&
+          item.ustensils.indexOf(values.dataset.tagName) == -1
+        ) {
+          selectedTags = selectedTags.filter(
+            (item) => item != item.displayRecipe
+          );
         }
       });
     });
   }
-
 }
-
 
 // ----------- FILTER TAGS APPAREILS -------------//
 
@@ -508,8 +510,6 @@ function filterTagUstensile(recipes, selectedTags) {
   newList(filterSearch);
   displayCards(filterSearch);
 }
-
-
 
 // -----------------------------------------------------------------------------//
 //***************************** FILTER INPUT **********************************//
@@ -595,9 +595,6 @@ function filterUstensils() {
     fillUstensilsList(recipes);
   }
 }
-
-
-
 
 // -----------------------------------------------------------------------------//
 //********************* NEW LIST DROPDOWN AFTER FILTER ************************//
