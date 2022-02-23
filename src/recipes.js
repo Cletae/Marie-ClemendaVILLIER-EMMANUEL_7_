@@ -204,7 +204,7 @@ searchbarInput.addEventListener("input", (e) => {
     newList(filterSearch);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    // filterTagItems(selectedTags);
+    filterTag(recipes, selectedTags);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -230,8 +230,6 @@ ustensilesInput.addEventListener("input", () => {
 //------------------------------------------------------------------------------//
 
 function displayCards(recipes) {
-  let displayRecipes = [];
-
   recipes.forEach((recipe) => {
     if (!recipe) return;
 
@@ -332,8 +330,6 @@ function filterTag(recipes, selectedTags) {
 function fillIngredientsList(displayRecipes) {
   ingredientsList.innerHTML = "";
 
-  ingredientsArray = [];
-
   displayRecipes.forEach((displayRecipe) => {
     const dataIngredients = displayRecipe.ingredients;
 
@@ -365,8 +361,6 @@ function fillIngredientsList(displayRecipes) {
 function fillAppareilsList(displayRecipes) {
   appareilsList.innerHTML = "";
 
-  appareilsArray = [];
-
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
       let appareil = displayRecipe.appliance;
@@ -391,8 +385,6 @@ function fillAppareilsList(displayRecipes) {
 
 function fillUstensilsList(displayRecipes) {
   ustensilesList.innerHTML = "";
-
-  ustensilsArray = [];
 
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
@@ -583,8 +575,6 @@ function filterUstensils() {
 function newIngredientList(filterSearch) {
   ingredientsList.innerHTML = "";
 
-  resultIngredient = [];
-
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       recipe.ingredients.forEach((obj) => {
@@ -617,8 +607,6 @@ function newIngredientList(filterSearch) {
 function newAppareilsList(filterSearch) {
   appareilsList.innerHTML = "";
 
-  resultAppareil = [];
-
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       let appareil = recipe.appliance;
@@ -648,8 +636,6 @@ function newAppareilsList(filterSearch) {
 
 function newUstensilsList(filterSearch) {
   ustensilesList.innerHTML = "";
-
-  resultUstensil = [];
 
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
