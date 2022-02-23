@@ -204,7 +204,7 @@ searchbarInput.addEventListener("input", (e) => {
     newList(filterSearch);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    filterTag(recipes, selectedTags);
+    // filterTagItems(selectedTags);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -230,6 +230,8 @@ ustensilesInput.addEventListener("input", () => {
 //------------------------------------------------------------------------------//
 
 function displayCards(recipes) {
+  let displayRecipes = [];
+
   recipes.forEach((recipe) => {
     if (!recipe) return;
 
@@ -318,7 +320,7 @@ function filterTag(recipes, selectedTags) {
   filterTagIngredient(recipes, selectedTags);
   filterTagAppareil(recipes, selectedTags);
   filterTagUstensile(recipes, selectedTags);
-  filterTagItems(recipes);
+  // filterTagItems(recipes);
 }
 
 // --------------------------------------------------------------------------------//
@@ -329,6 +331,9 @@ function filterTag(recipes, selectedTags) {
 
 function fillIngredientsList(displayRecipes) {
   ingredientsList.innerHTML = "";
+
+  ingredientsArray = [];
+
   displayRecipes.forEach((displayRecipe) => {
     const dataIngredients = displayRecipe.ingredients;
 
@@ -360,6 +365,8 @@ function fillIngredientsList(displayRecipes) {
 function fillAppareilsList(displayRecipes) {
   appareilsList.innerHTML = "";
 
+  appareilsArray = [];
+
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
       let appareil = displayRecipe.appliance;
@@ -385,6 +392,8 @@ function fillAppareilsList(displayRecipes) {
 function fillUstensilsList(displayRecipes) {
   ustensilesList.innerHTML = "";
 
+  ustensilsArray = [];
+
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
       displayRecipe.ustensils.forEach((objet) => {
@@ -402,44 +411,6 @@ function fillUstensilsList(displayRecipes) {
     .forEach((ustensil) => {
       ustensilesList.appendChild(displayUstensilItem(ustensil));
     });
-}
-
-function filterTagItems(recipes) {
-  const tags = document.querySelectorAll(".tagName");
-
-  recipesContainer.innerHTML = "";
-  tags.forEach((tag) => {
-    filterSearch = recipes.filter(
-      (displayRecipes) =>
-        displayRecipes.ingredients.find((ingredientArray) =>
-          ingredientArray.ingredient
-            .toLowerCase()
-            .includes(tag.innerText.toLowerCase())
-        ) ||
-        displayRecipes.appliance
-          .toLowerCase()
-          .includes(tag.innerText.toLowerCase()) ||
-        displayRecipes.ustensils.find((ustensil) =>
-          ustensil.toLowerCase().includes(tag.innerText.toLowerCase())
-        )
-    );
-  });
-
-  selectedTags.forEach((tag) => {
-    if (
-      element.ingredients.indexOf(tag) == -1 &&
-      element.appliance.indexOf(tag) == -1 &&
-      element.ustensils.indexOf(tag) == -1
-    ) {
-      selectedTags = selectedTags.filter(
-        (displayRecipes) => displayRecipes != element.html
-      );
-      //   displayRecipes = displayRecipes.filter((item) => item != element.recipe);
-    }
-  });
-
-  clearHtml();
-  displayCards(filterSearch);
 }
 
 // -----------------------------------------------------------------------------//
@@ -612,6 +583,8 @@ function filterUstensils() {
 function newIngredientList(filterSearch) {
   ingredientsList.innerHTML = "";
 
+  resultIngredient = [];
+
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       recipe.ingredients.forEach((obj) => {
@@ -644,6 +617,8 @@ function newIngredientList(filterSearch) {
 function newAppareilsList(filterSearch) {
   appareilsList.innerHTML = "";
 
+  resultAppareil = [];
+
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       let appareil = recipe.appliance;
@@ -673,6 +648,8 @@ function newAppareilsList(filterSearch) {
 
 function newUstensilsList(filterSearch) {
   ustensilesList.innerHTML = "";
+
+  resultUstensil = [];
 
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
@@ -739,9 +716,15 @@ function closeTagBtn(tagItem) {
   const closeBtn = tagItem.querySelector(".btn_close");
 
   closeBtn.addEventListener("click", () => {
-    tagItem.remove();
-    fillInput();
-    displayCards(recipes);
+    if (searchbarInput.value == "" || tagItem == "") {
+      tagItem.remove();
+      fillInput(displayRecipes);
+      displayCards(recipes);
+    } else {
+      tagItem.remove();
+      newList(filterSearch, inputValue);
+      displayCards(filterSearch);
+    }
   });
 }
 
