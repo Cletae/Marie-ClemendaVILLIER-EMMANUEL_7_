@@ -85,7 +85,7 @@ const displayIngredientItem = (item) => {
       if (tag.innerText == inputValue) {
         closeTagBtn(tagItem);
         filterTagIngredient(recipes, selectedTags);
-        filterTagsItems(tags, tagArray, selectedTags);
+        // filterTagsItems(tags, tagArray, selectedTags);
         console.log(inputValue + " retiré");
       }
     });
@@ -203,10 +203,10 @@ searchbarInput.addEventListener("input", (e) => {
   inputValue = searchbarInput.value;
   if (inputValue.length >= 3) {
     filterSearch = filterSearchbar();
-    newList(filterSearch);
+    newList(filterSearch, inputValue);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    filterTag(recipes, selectedTags, tags);
+    // filterTagsItems(recipes, selectedTags, tags);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -232,6 +232,8 @@ ustensilesInput.addEventListener("input", () => {
 //------------------------------------------------------------------------------//
 
 function displayCards(recipes) {
+  let displayRecipes = [];
+
   recipes.forEach((recipe) => {
     if (!recipe) return;
 
@@ -302,10 +304,10 @@ function fillInput(displayRecipes) {
 }
 
 // ----------- FILL DROPDOWN NEW LIST AFETR FILTERING ----------- //
-function newList(filterSearch) {
-  newIngredientList(filterSearch);
-  newAppareilsList(filterSearch);
-  newUstensilsList(filterSearch);
+function newList(filterSearch, inputValue) {
+  newIngredientList(filterSearch, inputValue);
+  newAppareilsList(filterSearch, inputValue);
+  newUstensilsList(filterSearch, inputValue);
 }
 
 // ----------- FILTER INPUT  ----------------- //
@@ -320,7 +322,7 @@ function filterTag(recipes, selectedTags, tags) {
   filterTagIngredient(recipes, selectedTags);
   filterTagAppareil(recipes, selectedTags);
   filterTagUstensile(recipes, selectedTags);
-  filterTagItems(recipes, tags);
+  // filterTagsItems(recipes, tags);
 }
 
 // --------------------------------------------------------------------------------//
@@ -331,6 +333,9 @@ function filterTag(recipes, selectedTags, tags) {
 
 function fillIngredientsList(displayRecipes) {
   ingredientsList.innerHTML = "";
+
+  ingredientsArray = [];
+
   displayRecipes.forEach((displayRecipe) => {
     const dataIngredients = displayRecipe.ingredients;
 
@@ -362,6 +367,8 @@ function fillIngredientsList(displayRecipes) {
 function fillAppareilsList(displayRecipes) {
   appareilsList.innerHTML = "";
 
+  appareilsArray = [];
+
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
       let appareil = displayRecipe.appliance;
@@ -386,6 +393,8 @@ function fillAppareilsList(displayRecipes) {
 
 function fillUstensilsList(displayRecipes) {
   ustensilesList.innerHTML = "";
+
+  ustensilsArray = [];
 
   displayRecipes.forEach((displayRecipe) => {
     if (displayRecipes.includes(displayRecipe)) {
@@ -463,27 +472,6 @@ function filterTagIngredient(recipes, selectedTags) {
   displayCards(filterSearch);
 }
 
-function filterTagsItems(tags, items, selectedTags) {
-  if (tags.length == 0) {
-    selectedTags = items;
-  } else {
-    tags.forEach((values) => {
-      console.log(selectedTags);
-      console.log(items);
-      items.filter((item) => {
-        if (
-          item.fillIngredientsList.indexOf(values.dataset.tagName) == -1 &&
-          item.appliance.indexOf(values.dataset.tagName) == -1 &&
-          item.ustensils.indexOf(values.dataset.tagName) == -1
-        ) {
-          selectedTags = selectedTags.filter(
-            (item) => item != item.displayRecipe
-          );
-        }
-      });
-    });
-  }
-}
 
 // ----------- FILTER TAGS APPAREILS -------------//
 
@@ -605,6 +593,8 @@ function filterUstensils() {
 function newIngredientList(filterSearch) {
   ingredientsList.innerHTML = "";
 
+  resultIngredient = [];
+
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       recipe.ingredients.forEach((obj) => {
@@ -637,6 +627,8 @@ function newIngredientList(filterSearch) {
 function newAppareilsList(filterSearch) {
   appareilsList.innerHTML = "";
 
+  resultAppareil = [];
+
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
       let appareil = recipe.appliance;
@@ -666,6 +658,8 @@ function newAppareilsList(filterSearch) {
 
 function newUstensilsList(filterSearch) {
   ustensilesList.innerHTML = "";
+
+  resultUstensil = [];
 
   filterSearch.forEach((recipe) => {
     if (displayRecipes.includes(recipe)) {
@@ -732,9 +726,15 @@ function closeTagBtn(tagItem) {
   const closeBtn = tagItem.querySelector(".btn_close");
 
   closeBtn.addEventListener("click", () => {
-    tagItem.remove();
-    fillInput(displayRecipes);
-    displayCards(recipes);
+    if (searchbarInput.value == "" || tagItem == "") {
+      tagItem.remove();
+      fillInput(displayRecipes);
+      displayCards(recipes);
+    } else {
+      tagItem.remove();
+      newList(filterSearch, inputValue);
+      displayCards(filterSearch);
+    }
   });
 }
 
