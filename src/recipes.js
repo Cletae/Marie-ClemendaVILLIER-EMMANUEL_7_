@@ -206,7 +206,7 @@ searchbarInput.addEventListener("input", (e) => {
     newList(filterSearch, inputValue);
   } else if (selectedTags.length != 0) {
     clearHtml();
-    // filterTagsItems(recipes, selectedTags, tags);
+    filterTag(recipes, selectedTags);
     displayCards(filterSearch);
   } else {
     clearHtml();
@@ -318,7 +318,7 @@ function filterDropdown(displayRecipes) {
   filterUstensils(displayRecipes);
 }
 
-function filterTag(recipes, selectedTags, tags) {
+function filterTag(recipes, selectedTags) {
   filterTagIngredient(recipes, selectedTags);
   filterTagAppareil(recipes, selectedTags);
   filterTagUstensile(recipes, selectedTags);
